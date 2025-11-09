@@ -1,0 +1,3 @@
+source "$BR2_EXTERNAL_project_base_PATH/package/final-application/Config.in"
+source "$BR2_EXTERNAL_project_base_PATH/package/final-driver/Config.in"
+source "$BR2_EXTERNAL_project_base_PATH/package/lwip/Config.in"
