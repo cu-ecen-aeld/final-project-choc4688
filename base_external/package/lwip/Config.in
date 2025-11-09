@@ -1,0 +1,4 @@
+config BR2_PACKAGE_LWIP
+	bool "lwip"
+	help
+	  Includes the module for lwIP (Lightweight IP)

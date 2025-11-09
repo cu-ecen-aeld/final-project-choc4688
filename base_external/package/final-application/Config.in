@@ -1,0 +1,4 @@
+config BR2_PACKAGE_FINALSOURCE
+	bool "lwip"
+	help
+	  Includes the module for the AESD final project source code
