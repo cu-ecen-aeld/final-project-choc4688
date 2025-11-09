@@ -10,8 +10,8 @@ LWIP_MODULE_SUBDIRS = src
 
 
 define LWIP_INSTALL_TARGET_CMDS
-	$(INSTALL) -d $(TARGET_DIR)/usr/src/lwip
-	$(INSTALL) -m 0755 $(@D)/src/* $(TARGET_DIR)/usr/src/lwip/
+	$(INSTALL) -d $(TARGET_DIR)/usr/lib/lwip
+	$(INSTALL) -m 0755 $(@D)/src/* $(TARGET_DIR)/usr/lib/lwip/
 endef
 
 
