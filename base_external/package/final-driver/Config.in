@@ -1,0 +1,4 @@
+config BR2_PACKAGE_FINAL_DRIVER
+	bool "final-source-custom-eth-driver"
+	help
+	  Includes the module for the AESD final project source code

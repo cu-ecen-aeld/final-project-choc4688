@@ -1,4 +1,4 @@
-config BR2_PACKAGE_FINALSOURCE
-	bool "lwip"
+config BR2_PACKAGE_FINAL_APPLICATION
+	bool "final-source-lwip-app"
 	help
 	  Includes the module for the AESD final project source code

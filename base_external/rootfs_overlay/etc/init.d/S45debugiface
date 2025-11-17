@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Start the network (S39network)...
+#
+
+#Note: This file was AI generated, used for debugging the interface
+
+# Debian ifupdown needs the /run/network lock directory
+mkdir -p /run/network
+
+case "$1" in
+  start)
+    printf "Starting network: "
+
+    # --- BEGIN DEBUG ADDITIONS ---
+    echo "---- S39network start ----" > /var/netdebug.txt
+    date >> /var/netdebug.txt
+
+    echo "---- /etc/network/interfaces ----" >> /var/netdebug.txt
+    cat /etc/network/interfaces >> /var/netdebug.txt 2>&1
+    echo "---------------------------------" >> /var/netdebug.txt
+
+    echo "Running: ifup -a" >> /var/netdebug.txt
+    /sbin/ifup -a >> /var/netdebug.txt 2>&1
+
+    echo "Running: ifup eth0" >> /var/netdebug.txt
+    /sbin/ifup eth0 >> /var/netdebug.txt 2>&1
+
+    echo "---- IP ADDR ----" >> /var/netdebug.txt
+    /sbin/ip addr show >> /var/netdebug.txt 2>&1
+    echo "-----------------" >> /var/netdebug.txt
+    # --- END DEBUG ADDITIONS ---
+
+    [ $? = 0 ] && echo "OK" || echo "FAIL"
+    ;;
+  stop)
+    printf "Stopping network: "
+    /sbin/ifdown -a
+    [ $? = 0 ] && echo "OK" || echo "FAIL"
+    ;;
+  restart|reload)
+    "$0" stop
+    "$0" start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit $?

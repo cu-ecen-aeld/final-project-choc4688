@@ -1,0 +1,54 @@
+interfaces="sn0 sn1"
+
+case "$1" in   
+    start)
+        echo "Loading final-driver"
+
+        module="final-driver"
+        device="final-driver"
+        mode="664"
+
+        # Group: since distributions do it differently, look for wheel or use staff
+        # These are groups which correspond to system administrator accounts
+        if grep -q '^staff:' /etc/group; then
+            group="staff"
+        else
+            group="wheel"
+        fi
+
+        modprobe final-driver || exit 1
+
+        #Network drivers deal with interfaces, not device files with major and minor numbers
+
+        #Below section for setting up interfaces - ChatGPT Reference example, modified for my use case
+        for iface in $interfaces; do
+            if ip link show "$iface" >/dev/null 2>&1; then
+                echo "Bringing up $iface"
+                ip link set "$iface" up
+            fi
+        done
+
+        ;;
+    stop)
+        echo "Unloading final-driver"
+
+        module="final-driver"
+        device="final-driver"
+
+        #Below section for setting up interfaces - ChatGPT Reference example, modified for my use case
+        for iface in $interfaces; do
+            if ip link show "$iface" >/dev/null 2>&1; then
+                echo "Bringing down $iface"
+                ip link set "$iface" down
+            fi
+        done
+
+
+        rmmod final-driver || exit 1
+
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+    exit 1
+esac
+
